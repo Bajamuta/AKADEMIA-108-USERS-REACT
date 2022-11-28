@@ -13,10 +13,12 @@ function App() {
     const [users, updateUsers] = useState<User []>([]);
 
    const addUser = (username: string | undefined) => {
+       console.log(username);
        if (username) {
            let user = {id: users.length + 1, name: username} as User;
-           let temp = [...users, user];
-           updateUsers(temp);
+           updateUsers((prevUsers) => {
+               return [...prevUsers, user];
+           });
        }
    }
 
@@ -25,7 +27,7 @@ function App() {
       <header className="App-header">
         <h1>Users' List</h1>
       </header>
-        <NewUser username="" setUsername={addUser}/>
+        <NewUser setUsername={addUser}/>
         <Users users={users}/>
     </div>
   );

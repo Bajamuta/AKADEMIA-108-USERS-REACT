@@ -1,4 +1,4 @@
-import React, {Component, ReactNode} from "react";
+import React, {Component} from "react";
 import './Users.css'
 import {User} from "./App";
 
@@ -10,14 +10,14 @@ export default class Users extends Component<UserListProps> {
 
     showUsers = () => {
         return this.props.users.map((user) => {
-            return <li>{user.name}</li>
+            return <li key={user.id}>{user.name}</li>
         })
     }
 
     render() {
         return <main>
             <ol>
-                {this.showUsers}
+                {this.showUsers()}
             </ol>
         </main>;
     }

@@ -1,19 +1,28 @@
-import React, {Component, useRef} from "react";
+import React, {Component} from "react";
 
 interface NewUserProps {
-    username: string,
     setUsername: (arg: string | undefined) => void
 }
 
 export default class NewUser extends Component<NewUserProps> {
 
-   // _input = useRef<HTMLInputElement>(null);
-   _input: string | undefined;
+   _input: HTMLInputElement | null;
+
+   constructor(props: NewUserProps) {
+       super(props);
+       this._input = null;
+   }
 
     render() {
-        return <form>
-            <input type="text" placeholder="Enter name" ref={(data) => { this._input = data?.value} } />
-            <button type="submit" onClick={() => this.props.setUsername(this._input)}>Add user</button>
+        return <form onSubmit={(e) => {
+            e.preventDefault();
+            if (this._input)
+            {
+                this.props.setUsername(this._input.value)
+            }
+        }}>
+            <input type="text" placeholder="Enter name" ref={(data) => { this._input = data} } />
+            <button type="submit">Add user</button>
         </form>;
     }
 }
