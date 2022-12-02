@@ -1,4 +1,4 @@
-import React, {Component, useState} from "react";
+import React, {Component, useRef, useState} from "react";
 
 interface NewUserProps {
     setUsername: (arg: string | undefined) => void
@@ -28,16 +28,25 @@ interface NewUserProps {
 
 export default function NewUser(props: NewUserProps) {
 
-    const [input, updateInput] = useState<HTMLInputElement>();
+    /*const [input, updateInput] = useState<HTMLInputElement>();*/
+
+    const inputElement = useRef<HTMLInputElement>(null);
 
     return <form onSubmit={(e) => {
         e.preventDefault();
-        if (input)
+        /*if (input)
         {
             props.setUsername(input.value)
+        }*/
+        if (inputElement)
+        {
+            props.setUsername(inputElement.current?.value);
         }
     }}>
+{/*
         <input type="text" placeholder="Enter name" ref={(data) => { updateInput(data!)} } />
+*/}
+        <input type="text" placeholder="Enter name" ref={inputElement} />
         <button type="submit">Add user</button>
     </form>;
 }
