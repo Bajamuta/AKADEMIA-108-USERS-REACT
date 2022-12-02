@@ -11,16 +11,24 @@ export interface User {
 function App() {
 
     const [users, updateUsers] = useState<User []>([]);
+    const [key, updateKey] = useState<number>(0);
 
    const addUser = (username: string | undefined) => {
-       console.log(username);
        if (username) {
-           let user = {id: users.length + 1, name: username} as User;
+           let user = {id: key, name: username} as User;
            updateUsers((prevUsers) => {
                return [...prevUsers, user];
            });
+           // kolejne elementy listy (user list) muszą mieć unikalny key
+           updateKey((prevKey: number) => prevKey + 1);
        }
    }
+
+   const removeUser = (key: number) => {
+       updateUsers((prevUsers: User[]) => {
+           return prevUsers.filter((user) => user.id !== key);
+       });
+    }
 
   return (
     <div className="App">
@@ -28,7 +36,7 @@ function App() {
         <h1>Users' List</h1>
       </header>
         <NewUser setUsername={addUser}/>
-        <Users users={users}/>
+        <Users users={users} cancelUser={removeUser}/>
     </div>
   );
 }
