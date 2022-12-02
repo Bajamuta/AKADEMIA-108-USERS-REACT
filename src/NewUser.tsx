@@ -26,7 +26,7 @@ interface NewUserProps {
     }
 }*/
 
-/*export default function NewUser(props: NewUserProps) {
+export default function NewUser(props: NewUserProps) {
 
     const [input, updateInput] = useState<HTMLInputElement>();
 
@@ -40,4 +40,4 @@ interface NewUserProps {
         <input type="text" placeholder="Enter name" ref={(data) => { updateInput(data!)} } />
         <button type="submit">Add user</button>
     </form>;
-}*/
+}
